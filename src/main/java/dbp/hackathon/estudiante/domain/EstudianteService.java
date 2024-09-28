@@ -10,23 +10,23 @@ public class EstudianteService {
     @Autowired
     private EstudianteRepository estudianteRepository;
 
-    Estudiante save(Estudiante estudiante) {
+    public Estudiante save(Estudiante estudiante) {
         return estudianteRepository.save(estudiante);
     }
 
-    Estudiante findById(Long id) {
+    public Estudiante findById(Long id) {
         return estudianteRepository.findById(id).orElse(null);
     }
 
-    void deleteById(Long id) {
+    public void deleteById(Long id) {
         estudianteRepository.deleteById(id);
     }
 
-    Iterable<Estudiante> findAll() {
+    public Iterable<Estudiante> findAll() {
         return estudianteRepository.findAll();
     }
 
-    Estudiante replaceEstudiante(Estudiante newEstudiante, Long id) {
+    public Estudiante replaceEstudiante(Estudiante newEstudiante, Long id) {
         return estudianteRepository.findById(id)
                 .map(estudiante -> {
                     estudiante.setName(newEstudiante.getName());
@@ -40,7 +40,7 @@ public class EstudianteService {
     }
 
 
-    Estudiante updateParcialEstudiante(Estudiante newEstudiante, Long id) {
+    public Estudiante updateParcialEstudiante(Estudiante newEstudiante, Long id) {
         return estudianteRepository.findById(id)
                 .map(estudiante -> {
                     if (newEstudiante.getName() != null) {
