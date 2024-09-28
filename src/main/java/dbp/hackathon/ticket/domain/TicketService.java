@@ -27,6 +27,9 @@ public class TicketService {
     @Autowired
     private ApplicationEventPublisher publisher;
 
+    @Autowired
+    private QrCodeService qrCodeService;
+
     public Ticket createTicket(Long estudianteId, Long funcionId, Integer cantidad) {
         Estudiante estudiante = estudianteRepository.findById(estudianteId).orElse(null);
         Funcion funcion = funcionRepository.findById(funcionId).orElse(null);
@@ -40,7 +43,7 @@ public class TicketService {
         ticket.setCantidad(cantidad);
         ticket.setEstado(Estado.VENDIDO);
         ticket.setFechaCompra(LocalDateTime.now());
-        ticket.setQr("GENERATED-QR-CODE");
+        ticket.setQr(qrCodeService.generateQRCode("Ticket ID: " + ticket.getId()));
 
         ticket = ticketRepository.save(ticket);
         publisher.publishEvent(new TicketCreatedEvent(ticket));
