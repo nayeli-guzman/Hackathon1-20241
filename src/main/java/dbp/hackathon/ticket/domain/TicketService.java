@@ -43,7 +43,6 @@ public class TicketService {
         ticket.setQr("GENERATED-QR-CODE");
 
         ticket = ticketRepository.save(ticket);
-        ;
         publisher.publishEvent(new TicketCreatedEvent(ticket));
 
         return ticket;
