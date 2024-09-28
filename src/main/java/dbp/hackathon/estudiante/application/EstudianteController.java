@@ -1,5 +1,7 @@
-package dbp.hackathon.Estudiante;
+package dbp.hackathon.estudiante.application;
 
+import dbp.hackathon.estudiante.domain.Estudiante;
+import dbp.hackathon.estudiante.domain.EstudianteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

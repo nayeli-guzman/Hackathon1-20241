@@ -1,7 +1,7 @@
-package dbp.hackathon.Funcion;
+package dbp.hackathon.funcion.domain;
 
-import dbp.hackathon.Ticket.TicketRepository;
-import dbp.hackathon.Ticket.TicketService;
+import dbp.hackathon.funcion.infrastructure.FuncionRepository;
+import dbp.hackathon.ticket.infrastructure.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

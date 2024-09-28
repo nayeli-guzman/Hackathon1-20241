@@ -1,5 +1,6 @@
-package dbp.hackathon.Estudiante;
+package dbp.hackathon.estudiante.domain;
 
+import dbp.hackathon.estudiante.infrastructure.EstudianteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,5 +1,7 @@
-package dbp.hackathon.Funcion;
+package dbp.hackathon.funcion.application;
 
+import dbp.hackathon.funcion.domain.Funcion;
+import dbp.hackathon.funcion.domain.FuncionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

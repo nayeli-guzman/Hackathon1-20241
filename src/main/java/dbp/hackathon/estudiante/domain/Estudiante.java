@@ -1,7 +1,7 @@
-package dbp.hackathon.Estudiante;
+package dbp.hackathon.estudiante.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import dbp.hackathon.Ticket.Ticket;
+import dbp.hackathon.ticket.domain.Ticket;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
