@@ -4,9 +4,12 @@ import dbp.hackathon.estudiante.domain.Estudiante;
 import dbp.hackathon.estudiante.infrastructure.EstudianteRepository;
 import dbp.hackathon.funcion.domain.Funcion;
 import dbp.hackathon.funcion.infrastructure.FuncionRepository;
+import dbp.hackathon.ticket.event.TicketCreatedEvent;
 import dbp.hackathon.ticket.infrastructure.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+
 import java.time.LocalDateTime;
 
 @Service
@@ -20,6 +23,9 @@ public class TicketService {
 
     @Autowired
     private FuncionRepository funcionRepository;
+
+    @Autowired
+    private ApplicationEventPublisher publisher;
 
     public Ticket createTicket(Long estudianteId, Long funcionId, Integer cantidad) {
         Estudiante estudiante = estudianteRepository.findById(estudianteId).orElse(null);
@@ -36,7 +42,11 @@ public class TicketService {
         ticket.setFechaCompra(LocalDateTime.now());
         ticket.setQr("GENERATED-QR-CODE");
 
-        return ticketRepository.save(ticket);
+        ticket = ticketRepository.save(ticket);
+        ;
+        publisher.publishEvent(new TicketCreatedEvent(ticket));
+
+        return ticket;
     }
 
     public Ticket findById(Long id) {
