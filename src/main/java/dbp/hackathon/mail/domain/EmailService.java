@@ -1,5 +1,6 @@
 package dbp.hackathon.mail.domain;
 
+import dbp.hackathon.ticket.domain.Ticket;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,34 +8,19 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring6.SpringTemplateEngine;
 
 @Service
 public class EmailService {
 
-    public static final String MAIL_TO_STUDENTS =
-                    """
-                    <!DOCTYPE html>
-                    <html>
-                    <head>
-                      <title>¡Gracias por tu compra!</title>
-                    </head>
-                    <body>
-                      <h1>¡Gracias por tu compra!</h1>
-                      <p>¡Hola {{nombre}}! Te informamos que tu compra ha sido exitosa. A continuación, te presentamos los detalles de tu compra:</p>
-                      <ul>
-                        <li>Nombre de la película: {{nombrePelicula}}</li>
-                        <li>Fecha de la función: {{fechaFuncion}}</li>
-                        <li>Cantidad de entradas: {{cantidadEntradas}}</li>
-                        <li>Precio total: {{precioTotal}}</li>
-                        <li>Código QR: <img src="{{qr}}"></li>
-                      </ul>
-                      <p>¡No olvides llevar tu código QR impreso o en tu dispositivo móvil para poder ingresar a la función! ¡Te esperamos!</p>
-                    </body>
-                    </html>
-                    """;
+
 
     @Autowired
     private JavaMailSender mailSender;
+
+    @Autowired
+    private SpringTemplateEngine engine;
 
     public void sendSimpleMessage(String to, String subject, String text) {
         SimpleMailMessage message = new SimpleMailMessage();
@@ -44,12 +30,23 @@ public class EmailService {
         mailSender.send(message);
     }
 
-    public void sendHTMLEmail(String to, String subject, String html) throws MessagingException {
+    public void sendHTMLEmail(Ticket ticket) throws MessagingException {
+
+        Context context = new Context();
+        context.setVariable("nombrePelicula", ticket.getFuncion().getNombre());
+        context.setVariable("fechaFuncion", ticket.getFuncion().getFecha().toString());
+        context.setVariable("cantidadEntradas", ticket.getCantidad());
+        context.setVariable("precioTotal", ticket.getFuncion().getPrecio());
+        context.setVariable("qr", ticket.getQr());
+
+        String process =
+                engine.process("file/template/emailTemplate.html", context);
+
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
-        helper.setSubject(subject);
-        helper.setText(html, true);
-        helper.setTo(to);
+        helper.setSubject("Ticket comprado: " + ticket.getEstudiante().getName());
+        helper.setText(process, true);
+        helper.setTo(ticket.getEstudiante().getEmail());
         mailSender.send(mimeMessage);
     }
 }

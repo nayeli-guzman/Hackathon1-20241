@@ -8,12 +8,13 @@ import dbp.hackathon.ticket.event.TicketCreatedEvent;
 import dbp.hackathon.ticket.infrastructure.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
 @Service
-public class TicketService {
+public class TicketService implements ApplicationEventPublisherAware {
 
     @Autowired
     private TicketRepository ticketRepository;
@@ -76,4 +77,8 @@ public class TicketService {
         ticketRepository.save(ticket);
     }
 
+    @Override
+    public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
+        this.publisher = applicationEventPublisher;
+    }
 }

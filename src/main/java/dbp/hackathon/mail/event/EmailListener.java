@@ -1,6 +1,7 @@
 package dbp.hackathon.mail.event;
 
 import dbp.hackathon.mail.domain.EmailService;
+import dbp.hackathon.ticket.event.TicketCreatedEvent;
 import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
@@ -15,7 +16,8 @@ public class EmailListener {
 
     @EventListener
     @Async
-    public void handleHelloEmailEvent() {
+    public void listen(TicketCreatedEvent event) throws MessagingException{
+        emailService.sendHTMLEmail(event.getTicket());
     }
 
 
