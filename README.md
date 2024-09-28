@@ -8,7 +8,7 @@ Tu misión será diseñar un sistema de venta de entradas que permita a estas or
 
 ## Postman Collection
 
-La colección de Postman con los endpoints necesarios para la implementación de este sistema se encuentra en el siguiente enlace: [Postman Collection](https://app.getpostman.com/join-team?invite_code=543883cf7d52bdf731c6d3da16f98ce1&target_code=f7e73e8b8ffcd69ffe69e8b1427e2113) 📦. Para ello tendrán que hacer un fork de las colecciones para poder testear con facilidad sus endpoints y no perder tiempo en configuraciones.
+La colección de Postman con los endpoints necesarios para la implementación de este sistema se encuentra en el siguiente enlace: [Postman Collection](https://www.postman.com/universidad-de-ingeniera-y-tecnologa-utec-student-plan/workspace/hack1) 📦. Para ello tendrán que hacer un fork de las colecciones para poder testear con facilidad sus endpoints y no perder tiempo en configuraciones.
 
 ## Calificando
 
